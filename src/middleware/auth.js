@@ -69,6 +69,11 @@ const requireAdmin = async (req, res, next) => {
   try {
     await authenticateToken(req, res, () => {});
     
+    // Check if response was already sent by authenticateToken
+    if (res.headersSent) {
+      return;
+    }
+    
     if (!req.admin) {
       logger.security('Non-admin attempted to access admin endpoint', {
         userId: req.user?._id,

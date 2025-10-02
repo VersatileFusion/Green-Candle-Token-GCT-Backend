@@ -98,15 +98,47 @@ class BlockchainService {
   }
   
   async getTokenPrice() {
-    // In a real implementation, you would fetch from a price oracle or DEX
-    // For now, return a mock response
-    return {
-      price: "0.01", // USD
-      change24h: "+2.5%",
-      marketCap: "1000000",
-      volume24h: "50000",
-      lastUpdated: new Date().toISOString()
-    };
+    try {
+      const priceService = require('./priceService');
+      const contractAddress = process.env.CONTRACT_ADDRESS;
+      
+      if (!contractAddress) {
+        logger.warn('No contract address configured, using fallback price');
+        return {
+          price: "0.01", // USD
+          change24h: "+2.5%",
+          marketCap: "1000000",
+          volume24h: "50000",
+          lastUpdated: new Date().toISOString(),
+          source: 'fallback'
+        };
+      }
+      
+      // Get real-time price from price service
+      const price = await priceService.getTokenPrice(contractAddress);
+      
+      logger.info('Token price fetched', {
+        contractAddress,
+        price: price.price,
+        source: price.source
+      });
+      
+      return price;
+      
+    } catch (error) {
+      logger.error('Failed to get token price', { error: error.message });
+      
+      // Return fallback price on error
+      return {
+        price: "0.01", // USD
+        change24h: "+2.5%",
+        marketCap: "1000000",
+        volume24h: "50000",
+        lastUpdated: new Date().toISOString(),
+        source: 'fallback',
+        error: error.message
+      };
+    }
   }
   
   async getContractInfo() {

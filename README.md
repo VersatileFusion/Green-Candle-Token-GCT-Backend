@@ -1,139 +1,253 @@
-# Green Candle Token (GCT) Backend | بک‌اند توکن گرین کندل
+# Green Candle Token (GCT) Backend | بک‌اند توکن شمع سبز (GCT)
 
-[🇺🇸 English](#english) | [🇮🇷 فارسی](#persian)
+<div align="center">
+
+![GCT Logo](https://via.placeholder.com/200x100/00ff00/ffffff?text=GCT)
+
+**A secure and scalable backend API for the Green Candle Token platform**  
+**یک API بک‌اند امن و مقیاس‌پذیر برای پلتفرم توکن شمع سبز**
+
+[![Node.js](https://img.shields.io/badge/Node.js-18.0.0+-green.svg)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-4.18.2-blue.svg)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4.4+-green.svg)](https://mongodb.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+</div>
 
 ---
 
-## English
+## 📋 Table of Contents | فهرست مطالب
 
-A secure and scalable backend API for the Green Candle Token platform, built with Express.js and MongoDB. This backend supports token claim management, Merkle tree distribution, admin panel, and BSC blockchain integration.
+### English Section
+- [Overview](#overview)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [API Documentation](#api-documentation)
+- [Security](#security)
+- [Deployment](#deployment)
+- [Technology Stack](#technology-stack)
+- [Contributing](#contributing)
+- [Support](#support)
 
-## 🚀 Features
+### بخش فارسی
+- [نمای کلی](#نمای-کلی)
+- [ویژگی‌ها](#ویژگی‌ها)
+- [پیش‌نیازها](#پیش‌نیازها)
+- [نصب و راه‌اندازی](#نصب-و-راه-اندازی)
+- [مستندات API](#مستندات-api)
+- [امنیت](#امنیت)
+- [استقرار](#استقرار)
+- [پشته فناوری](#پشته-فناوری)
+- [مشارکت](#مشارکت)
+- [پشتیبانی](#پشتیبانی)
 
-### Core Features
-- **Secure User Authentication** - Wallet-based authentication with signature verification
-- **Admin Management System** - Role-based access control with 2FA support
-- **Token Claim System** - Self-claim and admin-claim functionality
-- **Merkle Tree Distribution** - Efficient token distribution with cryptographic proofs
-- **Blockchain Integration** - BSC network integration for smart contract interaction
-- **Rate Limiting** - Protection against abuse and DDoS attacks
-- **Comprehensive Logging** - Security and audit trail logging
-- **Input Validation** - XSS and injection attack prevention
+---
 
-### Security Features
-- JWT-based authentication
-- Rate limiting and throttling
-- CORS protection
-- Helmet security headers
-- Input sanitization and validation
-- Session management
-- Two-factor authentication for admins
-- Secure password hashing
-- IP tracking and monitoring
+## Overview | نمای کلی
 
-### API Endpoints
-- **Authentication** - `/api/v1/auth/*`
-- **User Management** - `/api/v1/user/*`
-- **Admin Panel** - `/api/v1/admin/*`
-- **Claim Operations** - `/api/v1/claim/*`
-- **Blockchain** - `/api/v1/blockchain/*`
+**English:**  
+A comprehensive backend API built with Express.js and MongoDB for the Green Candle Token (GCT) platform. This backend supports token claim management, Merkle tree distribution, admin panel, BSC blockchain integration, and real-time price tracking from multiple sources with advanced caching and performance optimization.
 
-## 📋 Prerequisites
+**فارسی:**  
+یک API بک‌اند جامع ساخته شده با Express.js و MongoDB برای پلتفرم توکن شمع سبز (GCT). این بک‌اند مدیریت ادعای توکن، توزیع درخت مرکل، پنل مدیریت، ادغام بلاک‌چین BSC و ردیابی قیمت بلادرنگ از منابع متعدد با کش پیشرفته و بهینه‌سازی عملکرد را پشتیبانی می‌کند.
 
+---
+
+## 🚀 Features | ویژگی‌ها
+
+### Core Features | ویژگی‌های اصلی
+
+| English | فارسی |
+|---------|--------|
+| **Secure User Authentication** - Wallet-based authentication with signature verification | **احراز هویت امن کاربر** - احراز هویت مبتنی بر کیف پول با تأیید امضا |
+| **Admin Management System** - Role-based access control with 2FA support | **سیستم مدیریت ادمین** - کنترل دسترسی مبتنی بر نقش با پشتیبانی از احراز هویت دو مرحله‌ای |
+| **Token Claim System** - Self-claim and admin-claim functionality | **سیستم ادعای توکن** - عملکرد ادعای خودکار و ادعای ادمین |
+| **Merkle Tree Distribution** - Efficient token distribution with cryptographic proofs | **توزیع درخت مرکل** - توزیع کارآمد توکن با اثبات‌های رمزنگاری |
+| **Blockchain Integration** - BSC network integration for smart contract interaction | **ادغام بلاک‌چین** - ادغام شبکه BSC برای تعامل قرارداد هوشمند |
+| **Real-time Price Tracking** - Multi-source price aggregation from CoinGecko, CoinMarketCap, PancakeSwap, and Binance | **ردیابی قیمت بلادرنگ** - تجمیع قیمت چندمنبعه از CoinGecko، CoinMarketCap، PancakeSwap و Binance |
+| **Advanced Caching System** - Intelligent caching with TTL and memory management | **سیستم کش پیشرفته** - کش هوشمند با TTL و مدیریت حافظه |
+| **Rate Limiting** - Protection against abuse and DDoS attacks | **محدودیت نرخ** - محافظت در برابر سوءاستفاده و حملات DDoS |
+| **Comprehensive Logging** - Security and audit trail logging | **ثبت‌نام جامع** - ثبت‌نام امنیت و رد ممیزی |
+| **Input Validation** - XSS and injection attack prevention | **اعتبارسنجی ورودی** - پیشگیری از حملات XSS و تزریق |
+
+### Security Features | ویژگی‌های امنیتی
+
+| English | فارسی |
+|---------|--------|
+| JWT-based authentication | احراز هویت مبتنی بر JWT |
+| Rate limiting and throttling | محدودیت نرخ و تنظیم سرعت |
+| CORS protection | محافظت CORS |
+| Helmet security headers | هدرهای امنیتی Helmet |
+| Input sanitization and validation | پاکسازی و اعتبارسنجی ورودی |
+| Session management | مدیریت جلسه |
+| Two-factor authentication for admins | احراز هویت دو مرحله‌ای برای ادمین‌ها |
+| Secure password hashing | هش کردن امن رمز عبور |
+| IP tracking and monitoring | ردیابی و نظارت IP |
+
+### API Endpoints | نقاط پایانی API
+
+| Endpoint | Description | توضیحات |
+|----------|-------------|---------|
+| `/api/v1/auth/*` | Authentication | احراز هویت |
+| `/api/v1/user/*` | User Management | مدیریت کاربر |
+| `/api/v1/admin/*` | Admin Panel | پنل مدیریت |
+| `/api/v1/claim/*` | Claim Operations | عملیات ادعا |
+| `/api/v1/blockchain/*` | Blockchain Integration | ادغام بلاک‌چین |
+| `/api/v1/price/*` | Price Tracking | ردیابی قیمت |
+| `/api/v1/staking/*` | Staking Operations | عملیات استیکینگ |
+| `/api/v1/blog/*` | Blog Management | مدیریت وبلاگ |
+| `/api/v1/help/*` | Help System | سیستم راهنما |
+| `/api/v1/activity/*` | Activity Tracking | ردیابی فعالیت |
+
+---
+
+## 📋 Prerequisites | پیش‌نیازها
+
+### English
 - **Node.js** >= 18.0.0
 - **MongoDB** >= 4.4
 - **npm** or **yarn**
+- **Git** for version control
 
-## 🛠️ Installation
+### فارسی
+- **Node.js** >= 18.0.0
+- **MongoDB** >= 4.4
+- **npm** یا **yarn**
+- **Git** برای کنترل نسخه
 
-### 1. Clone the repository
+---
+
+## 🛠️ Installation | نصب و راه‌اندازی
+
+### 1. Clone the repository | کلون کردن مخزن
+
 ```bash
+# English
+git clone <repository-url>
+cd GTC-backend
+
+# فارسی
 git clone <repository-url>
 cd GTC-backend
 ```
 
-### 2. Install dependencies
+### 2. Install dependencies | نصب وابستگی‌ها
+
 ```bash
+# English
+npm install
+
+# فارسی
 npm install
 ```
 
-### 3. Environment Configuration
+### 3. Environment Configuration | پیکربندی محیط
+
 Copy the example environment file and configure your settings:
 
 ```bash
+# English
+cp .env.example .env
+
+# فارسی
 cp .env.example .env
 ```
 
 Edit `.env` file with your configuration:
 
 ```env
-# Server Configuration
+# Server Configuration | پیکربندی سرور
 NODE_ENV=development
 PORT=3000
 API_VERSION=v1
 
-# Database
+# Database | پایگاه داده
 MONGODB_URI=mongodb://localhost:27017/GTC-backend
 
-# Security
+# Security | امنیت
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 SESSION_SECRET=your-super-secret-session-key-change-this-in-production
 BCRYPT_ROUNDS=12
 
-# Admin Configuration
+# Admin Configuration | پیکربندی ادمین
 ADMIN_EMAIL=admin@GTC-token.com
 ADMIN_DEFAULT_PASSWORD=Admin123!@#
 
-# Blockchain Configuration
+# Blockchain Configuration | پیکربندی بلاک‌چین
 BSC_RPC_URL=https://bsc-dataseed.binance.org/
 BSC_TESTNET_RPC_URL=https://data-seed-prebsc-1-s1.binance.org:8545/
 NETWORK=testnet
 CONTRACT_ADDRESS=0x0000000000000000000000000000000000000000
 PRIVATE_KEY=your-private-key-for-admin-transactions
 
-# Rate Limiting
+# Rate Limiting | محدودیت نرخ
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX_REQUESTS=100
 CLAIM_RATE_LIMIT_WINDOW_MS=3600000
 CLAIM_RATE_LIMIT_MAX_REQUESTS=10
 
-# CORS
+# CORS | CORS
 ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+
+# Price Service Configuration | پیکربندی سرویس قیمت
+COINGECKO_API_KEY=your-coingecko-api-key-optional
+COINMARKETCAP_API_KEY=your-coinmarketcap-api-key-optional
+PRICE_CACHE_TTL=60000
+PRICE_CACHE_MAX_SIZE=1000
 ```
 
-### 4. Database Setup
+### 4. Database Setup | راه‌اندازی پایگاه داده
+
 Make sure MongoDB is running, then create the default admin user:
 
 ```bash
+# English
+node src/scripts/createDefaultAdmin.js
+
+# فارسی
 node src/scripts/createDefaultAdmin.js
 ```
 
-### 5. Start the server
+### 5. Start the server | شروع سرور
 
-**Development:**
+**Development | توسعه:**
 ```bash
+# English
+npm run dev
+
+# فارسی
 npm run dev
 ```
 
-**Production:**
+**Production | تولید:**
 ```bash
+# English
+npm start
+
+# فارسی
 npm start
 ```
 
 The server will start on `http://localhost:3000` (or your configured PORT).
 
-## 📚 API Documentation
+---
 
-### Authentication
+## 📚 API Documentation | مستندات API
 
-#### Get Authentication Message
+### Authentication | احراز هویت
+
+#### Get Authentication Message | دریافت پیام احراز هویت
+
 ```http
 GET /api/v1/auth/message/:walletAddress
 ```
 
-Returns a message for wallet signature authentication.
+**English:** Returns a message for wallet signature authentication.  
+**فارسی:** پیامی برای احراز هویت امضای کیف پول برمی‌گرداند.
 
-#### Wallet Authentication
+#### Wallet Authentication | احراز هویت کیف پول
+
 ```http
 POST /api/v1/auth/wallet
 Content-Type: application/json
@@ -145,7 +259,8 @@ Content-Type: application/json
 }
 ```
 
-#### Admin Login
+#### Admin Login | ورود ادمین
+
 ```http
 POST /api/v1/auth/admin/login
 Content-Type: application/json
@@ -157,29 +272,33 @@ Content-Type: application/json
 }
 ```
 
-### User Operations
+### User Operations | عملیات کاربر
 
-#### Get User Profile
+#### Get User Profile | دریافت پروفایل کاربر
+
 ```http
 GET /api/v1/user/profile
 Authorization: Bearer <jwt_token>
 ```
 
-#### Get Claim History
+#### Get Claim History | دریافت تاریخچه ادعا
+
 ```http
 GET /api/v1/user/claims?page=1&limit=10
 Authorization: Bearer <jwt_token>
 ```
 
-#### Check Eligibility
+#### Check Eligibility | بررسی واجد شرایط بودن
+
 ```http
 GET /api/v1/user/eligibility
 Authorization: Bearer <jwt_token>
 ```
 
-### Claim Operations
+### Claim Operations | عملیات ادعا
 
-#### Self Claim
+#### Self Claim | ادعای خودکار
+
 ```http
 POST /api/v1/claim/self
 Content-Type: application/json
@@ -193,7 +312,8 @@ Authorization: Bearer <jwt_token>
 }
 ```
 
-#### Admin Claim
+#### Admin Claim | ادعای ادمین
+
 ```http
 POST /api/v1/claim/admin
 Content-Type: application/json
@@ -206,76 +326,67 @@ Authorization: Bearer <admin_jwt_token>
 }
 ```
 
-### Admin Operations
+### Price Operations | عملیات قیمت
 
-#### Dashboard Statistics
+#### Get Current Token Price | دریافت قیمت فعلی توکن
+
 ```http
-GET /api/v1/admin/dashboard
-Authorization: Bearer <admin_jwt_token>
+GET /api/v1/price/current/:address?
 ```
 
-#### User Management
+**English:** Returns real-time token price from multiple sources with caching.  
+**فارسی:** قیمت بلادرنگ توکن از منابع متعدد با کش برمی‌گرداند.
+
+#### Get Historical Prices | دریافت قیمت‌های تاریخی
+
 ```http
-GET /api/v1/admin/users?page=1&limit=20&search=0x742d
-Authorization: Bearer <admin_jwt_token>
+GET /api/v1/price/historical/:address?days=7
 ```
 
-#### Create Merkle Tree
-```http
-POST /api/v1/admin/merkle-trees
-Content-Type: application/json
-Authorization: Bearer <admin_jwt_token>
+**English:** Get historical price data for specified number of days (1-365).  
+**فارسی:** داده‌های قیمت تاریخی برای تعداد روزهای مشخص شده (1-365) دریافت کنید.
 
-{
-  "name": "Phase 1 Distribution",
-  "description": "Initial token distribution for early supporters",
-  "data": [
-    {
-      "walletAddress": "0x742d35Cc6634C0532925a3b8D23a40b83d8FA16F",
-      "amount": "1000000000000000000"
-    }
-  ]
-}
+#### Get Price Comparison | دریافت مقایسه قیمت
+
+```http
+GET /api/v1/price/comparison/:address?
 ```
 
-### Blockchain Operations
+**English:** Compare prices across different sources (CoinGecko, CoinMarketCap, PancakeSwap, Binance).  
+**فارسی:** قیمت‌ها را در منابع مختلف مقایسه کنید (CoinGecko، CoinMarketCap، PancakeSwap، Binance).
 
-#### Get Network Info
-```http
-GET /api/v1/blockchain/network
-```
+---
 
-#### Get Wallet Balance
-```http
-GET /api/v1/blockchain/balance/0x742d35Cc6634C0532925a3b8D23a40b83d8FA16F
-```
+## 🔧 Scripts | اسکریپت‌ها
 
-#### Process Pending Claims (Admin Only)
-```http
-POST /api/v1/blockchain/process-claims
-Authorization: Bearer <admin_jwt_token>
-```
+### Create Default Admin | ایجاد ادمین پیش‌فرض
 
-## 🔧 Scripts
-
-### Create Default Admin
 ```bash
+# English
+node src/scripts/createDefaultAdmin.js
+
+# فارسی
 node src/scripts/createDefaultAdmin.js
 ```
 
-### Import Merkle Tree from CSV/JSON
+### Import Merkle Tree from CSV/JSON | وارد کردن درخت مرکل از CSV/JSON
+
 ```bash
+# English
+node src/scripts/importMerkleTree.js allocations.csv "Phase 1" "Description" admin@GTC-token.com
+
+# فارسی
 node src/scripts/importMerkleTree.js allocations.csv "Phase 1" "Description" admin@GTC-token.com
 ```
 
-**CSV Format:**
+**CSV Format | فرمت CSV:**
 ```csv
 walletAddress,amount
 0x742d35Cc6634C0532925a3b8D23a40b83d8FA16F,1000000000000000000
 0x8ba1f109551bD432803012645Hac136c22C12345,2000000000000000000
 ```
 
-**JSON Format:**
+**JSON Format | فرمت JSON:**
 ```json
 [
   {
@@ -285,27 +396,41 @@ walletAddress,amount
 ]
 ```
 
-## 🔒 Security
+---
 
-### Rate Limiting
-- **API Endpoints**: 100 requests per 15 minutes per IP
-- **Authentication**: 5 attempts per 15 minutes per IP
-- **Claims**: 10 claims per hour per IP, 1 claim per 24 hours per user
+## 🔒 Security | امنیت
 
-### Authentication
-- **Users**: Wallet signature-based authentication
-- **Admins**: Email/password + optional 2FA
+### Rate Limiting | محدودیت نرخ
 
-### Data Protection
-- All sensitive data is encrypted
-- No private keys stored on server
-- Secure session management
-- Input validation and sanitization
-- HTTPS enforced in production
+| Endpoint | Limit | توضیحات |
+|----------|-------|---------|
+| **API Endpoints** | 100 requests per 15 minutes per IP | 100 درخواست در هر 15 دقیقه برای هر IP |
+| **Authentication** | 5 attempts per 15 minutes per IP | 5 تلاش در هر 15 دقیقه برای هر IP |
+| **Claims** | 10 claims per hour per IP, 1 claim per 24 hours per user | 10 ادعا در ساعت برای هر IP، 1 ادعا در 24 ساعت برای هر کاربر |
 
-## 🌐 Deployment
+### Authentication | احراز هویت
 
-### Environment Variables for Production
+| Type | Method | روش |
+|------|--------|-----|
+| **Users** | Wallet signature-based authentication | احراز هویت مبتنی بر امضای کیف پول |
+| **Admins** | Email/password + optional 2FA | ایمیل/رمز عبور + احراز هویت دو مرحله‌ای اختیاری |
+
+### Data Protection | محافظت از داده
+
+| Feature | Description | توضیحات |
+|---------|-------------|---------|
+| All sensitive data is encrypted | تمام داده‌های حساس رمزنگاری شده‌اند |
+| No private keys stored on server | هیچ کلید خصوصی روی سرور ذخیره نمی‌شود |
+| Secure session management | مدیریت جلسه امن |
+| Input validation and sanitization | اعتبارسنجی و پاکسازی ورودی |
+| HTTPS enforced in production | HTTPS در تولید اجباری |
+
+---
+
+## 🌐 Deployment | استقرار
+
+### Environment Variables for Production | متغیرهای محیط برای تولید
+
 ```env
 NODE_ENV=production
 PORT=443
@@ -315,7 +440,8 @@ SSL_KEY_PATH=/path/to/ssl/private.key
 SSL_CERT_PATH=/path/to/ssl/certificate.crt
 ```
 
-### Docker Deployment (Optional)
+### Docker Deployment (Optional) | استقرار Docker (اختیاری)
+
 ```dockerfile
 FROM node:18-alpine
 WORKDIR /app
@@ -326,60 +452,193 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-### Production Checklist
-- [ ] Change default admin password
-- [ ] Enable 2FA for all admin accounts
-- [ ] Configure proper MongoDB connection with authentication
-- [ ] Set up SSL/TLS certificates
-- [ ] Configure firewall rules
-- [ ] Set up monitoring and logging
-- [ ] Configure backup strategy
-- [ ] Set strong JWT secrets
-- [ ] Configure proper CORS origins
-- [ ] Set up rate limiting
-- [ ] Configure environment variables
-- [ ] Test all endpoints
-- [ ] Set up error monitoring (e.g., Sentry)
+### Production Checklist | چک‌لیست تولید
 
-## 📊 Monitoring
+- [ ] **English:** Change default admin password | **فارسی:** تغییر رمز عبور پیش‌فرض ادمین
+- [ ] **English:** Enable 2FA for all admin accounts | **فارسی:** فعال کردن احراز هویت دو مرحله‌ای برای تمام حساب‌های ادمین
+- [ ] **English:** Configure proper MongoDB connection with authentication | **فارسی:** پیکربندی اتصال مناسب MongoDB با احراز هویت
+- [ ] **English:** Set up SSL/TLS certificates | **فارسی:** راه‌اندازی گواهی‌های SSL/TLS
+- [ ] **English:** Configure firewall rules | **فارسی:** پیکربندی قوانین فایروال
+- [ ] **English:** Set up monitoring and logging | **فارسی:** راه‌اندازی نظارت و ثبت‌نام
+- [ ] **English:** Configure backup strategy | **فارسی:** پیکربندی استراتژی پشتیبان‌گیری
+- [ ] **English:** Set strong JWT secrets | **فارسی:** تنظیم اسرار JWT قوی
+- [ ] **English:** Configure proper CORS origins | **فارسی:** پیکربندی منابع CORS مناسب
+- [ ] **English:** Set up rate limiting | **فارسی:** راه‌اندازی محدودیت نرخ
+- [ ] **English:** Configure environment variables | **فارسی:** پیکربندی متغیرهای محیط
+- [ ] **English:** Test all endpoints | **فارسی:** تست تمام نقاط پایانی
+- [ ] **English:** Set up error monitoring (e.g., Sentry) | **فارسی:** راه‌اندازی نظارت خطا (مثل Sentry)
 
-### Health Check
+---
+
+## 💰 Price Service & Caching | سرویس قیمت و کش
+
+### Price Sources | منابع قیمت
+
+The backend integrates with multiple price sources for accurate and reliable token pricing:
+
+| Source | Priority | Features | ویژگی‌ها |
+|--------|----------|----------|----------|
+| **CoinGecko** | 1 | Free tier available, comprehensive historical data | سطح رایگان موجود، داده‌های تاریخی جامع |
+| **CoinMarketCap** | 2 | Professional data, requires API key | داده‌های حرفه‌ای، نیاز به کلید API |
+| **PancakeSwap** | 3 | DEX pricing, real-time data | قیمت‌گذاری DEX، داده‌های بلادرنگ |
+| **Binance** | 4 | Exchange pricing, high reliability | قیمت‌گذاری صرافی، قابلیت اطمینان بالا |
+
+### Caching System | سیستم کش
+
+Advanced caching system with intelligent memory management:
+
+| Cache Type | TTL | Description | توضیحات |
+|------------|-----|-------------|---------|
+| **Current Price Cache** | 1 minute | Real-time data | داده‌های بلادرنگ |
+| **Historical Data Cache** | 10 minutes | Historical data | داده‌های تاریخی |
+| **Price Comparison Cache** | 5 minutes | Cross-source comparisons | مقایسه‌های چندمنبعه |
+| **Memory Management** | - | Automatic cleanup and eviction policies | پاکسازی خودکار و سیاست‌های حذف |
+
+### Price Service Features | ویژگی‌های سرویس قیمت
+
+| Feature | Description | توضیحات |
+|---------|-------------|---------|
+| **Multi-source Aggregation** | Combines data from multiple sources for accuracy | ترکیب داده‌ها از منابع متعدد برای دقت |
+| **Fallback Mechanism** | Graceful degradation when sources fail | تخریب تدریجی هنگام شکست منابع |
+| **Rate Limit Protection** | Built-in rate limiting for external API calls | محدودیت نرخ داخلی برای فراخوانی‌های API خارجی |
+| **Data Validation** | Comprehensive validation of price data integrity | اعتبارسنجی جامع یکپارچگی داده‌های قیمت |
+| **Real-time Updates** | Live price tracking with configurable refresh intervals | ردیابی قیمت زنده با فواصل تازه‌سازی قابل تنظیم |
+
+---
+
+## 📊 Monitoring | نظارت
+
+### Health Check | بررسی سلامت
+
 ```http
 GET /health
 ```
 
-### Logs
+### Logs | ثبت‌نام‌ها
+
 Logs are stored in the `logs/` directory:
-- `error.log` - Error level logs
-- `combined.log` - All logs
 
-### Log Categories
-- **Security**: Authentication, authorization, suspicious activities
-- **Admin**: Administrative actions
-- **Claim**: Token claim operations
-- **Blockchain**: Smart contract interactions
-- **Audit**: All significant operations
+| Log File | Description | توضیحات |
+|----------|-------------|---------|
+| `error.log` | Error level logs | ثبت‌نام‌های سطح خطا |
+| `combined.log` | All logs | تمام ثبت‌نام‌ها |
 
-## 🧪 Testing
+### Log Categories | دسته‌بندی ثبت‌نام‌ها
 
-### Run Tests
+| Category | Description | توضیحات |
+|----------|-------------|---------|
+| **Security** | Authentication, authorization, suspicious activities | احراز هویت، مجوز، فعالیت‌های مشکوک |
+| **Admin** | Administrative actions | اقدامات مدیریتی |
+| **Claim** | Token claim operations | عملیات ادعای توکن |
+| **Blockchain** | Smart contract interactions | تعاملات قرارداد هوشمند |
+| **Price** | Price service operations, cache hits/misses, source failures | عملیات سرویس قیمت، ضربه/خطای کش، شکست منابع |
+| **Audit** | All significant operations | تمام عملیات مهم |
+
+---
+
+## 🧪 Testing | تست
+
+### Run Tests | اجرای تست‌ها
+
 ```bash
+# English
+npm test
+
+# فارسی
 npm test
 ```
 
-### Run Tests in Watch Mode
+### Run Tests in Watch Mode | اجرای تست‌ها در حالت نظارت
+
 ```bash
+# English
+npm run test:watch
+
+# فارسی
 npm run test:watch
 ```
 
-### Linting
+### Linting | بررسی کد
+
 ```bash
+# English
+npm run lint
+npm run lint:fix
+
+# فارسی
 npm run lint
 npm run lint:fix
 ```
 
-## 🤝 Contributing
+---
 
+## 🛠️ Technology Stack | پشته فناوری
+
+### Core Dependencies | وابستگی‌های اصلی
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **Express.js** | ^4.18.2 | Web framework | چارچوب وب |
+| **MongoDB** | ^8.0.3 | Database with Mongoose ODM | پایگاه داده با Mongoose ODM |
+| **Node.js** | >= 18.0.0 | Runtime environment | محیط اجرا |
+
+### Security & Authentication | امنیت و احراز هویت
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **jsonwebtoken** | ^9.0.2 | JWT token management | مدیریت توکن JWT |
+| **bcryptjs** | ^2.4.3 | Password hashing | هش کردن رمز عبور |
+| **speakeasy** | ^2.0.0 | Two-factor authentication | احراز هویت دو مرحله‌ای |
+| **helmet** | ^7.1.0 | Security headers | هدرهای امنیتی |
+| **express-rate-limit** | ^7.1.5 | Rate limiting | محدودیت نرخ |
+
+### Blockchain Integration | ادغام بلاک‌چین
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **ethers** | ^6.8.1 | Ethereum/BSC blockchain interaction | تعامل بلاک‌چین Ethereum/BSC |
+| **merkletreejs** | ^0.3.11 | Merkle tree implementation | پیاده‌سازی درخت مرکل |
+| **keccak256** | ^1.0.6 | Cryptographic hashing | هش رمزنگاری |
+
+### Price Service & External APIs | سرویس قیمت و API های خارجی
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **axios** | ^1.6.0 | HTTP client for external API calls | کلاینت HTTP برای فراخوانی‌های API خارجی |
+| **express-validator** | ^7.0.1 | Input validation | اعتبارسنجی ورودی |
+| **compression** | ^1.7.4 | Response compression | فشرده‌سازی پاسخ |
+
+### Caching & Performance | کش و عملکرد
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **express-slow-down** | ^2.0.1 | Advanced rate limiting | محدودیت نرخ پیشرفته |
+| **connect-mongo** | ^5.1.0 | Session storage | ذخیره جلسه |
+| **express-session** | ^1.17.3 | Session management | مدیریت جلسه |
+
+### Utilities & Communication | ابزارها و ارتباطات
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **winston** | ^3.11.0 | Logging framework | چارچوب ثبت‌نام |
+| **nodemailer** | ^6.9.7 | Email notifications | اعلان‌های ایمیل |
+| **qrcode** | ^1.5.3 | QR code generation | تولید کد QR |
+| **cors** | ^2.8.5 | Cross-origin resource sharing | اشتراک‌گذاری منابع چندمنبعه |
+| **dotenv** | ^16.3.1 | Environment configuration | پیکربندی محیط |
+
+### Development Tools | ابزارهای توسعه
+
+| Package | Version | Description | توضیحات |
+|---------|---------|-------------|---------|
+| **nodemon** | ^3.0.2 | Development server | سرور توسعه |
+| **jest** | ^29.7.0 | Testing framework | چارچوب تست |
+| **eslint** | ^8.54.0 | Code linting | بررسی کد |
+
+---
+
+## 🤝 Contributing | مشارکت
+
+### English
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -387,30 +646,43 @@ npm run lint:fix
 5. Run linting and tests
 6. Submit a pull request
 
-## 📝 API Response Format
+### فارسی
+1. فورک کردن مخزن
+2. ایجاد شاخه ویژگی
+3. ایجاد تغییرات شما
+4. اضافه کردن تست برای عملکرد جدید
+5. اجرای بررسی کد و تست‌ها
+6. ارسال درخواست pull
 
-### Success Response
+---
+
+## 📝 API Response Format | فرمت پاسخ API
+
+### Success Response | پاسخ موفقیت
+
 ```json
 {
   "success": true,
   "data": {
-    // Response data
+    // Response data | داده‌های پاسخ
   }
 }
 ```
 
-### Error Response
+### Error Response | پاسخ خطا
+
 ```json
 {
   "success": false,
-  "error": "Error message",
+  "error": "Error message | پیام خطا",
   "details": [
-    // Validation errors if applicable
+    // Validation errors if applicable | خطاهای اعتبارسنجی در صورت وجود
   ]
 }
 ```
 
-### Pagination Response
+### Pagination Response | پاسخ صفحه‌بندی
+
 ```json
 {
   "success": true,
@@ -426,350 +698,74 @@ npm run lint:fix
 }
 ```
 
-## 🔗 Related Documentation
+---
 
-- [Smart Contract Documentation](./docs/smart-contract.md)
-- [API Reference](./docs/api-reference.md)
-- [Security Guidelines](./docs/security.md)
-- [Deployment Guide](./docs/deployment.md)
+## 🔗 Related Documentation | مستندات مرتبط
 
-## ⚠️ Important Notes
+| Document | Description | توضیحات |
+|----------|-------------|---------|
+| [API Reference](./docs/API.md) | Detailed API documentation | مستندات تفصیلی API |
+| [Price API Documentation](./docs/PRICE_API.md) | Price service API documentation | مستندات API سرویس قیمت |
+| [Deployment Guide](./docs/DEPLOYMENT.md) | Deployment instructions | دستورالعمل‌های استقرار |
 
+---
+
+## ⚠️ Important Notes | نکات مهم
+
+### English
 1. **Never store private keys on the server** - The backend only manages proofs and metadata
 2. **Change default passwords** - Always change default admin credentials in production
 3. **Enable 2FA** - Two-factor authentication is strongly recommended for admin accounts
 4. **Regular backups** - Implement regular database backups
 5. **Monitor logs** - Regularly check logs for suspicious activities
 6. **Update dependencies** - Keep all dependencies updated for security
+7. **Price service configuration** - Configure API keys for CoinGecko and CoinMarketCap for optimal price accuracy
+8. **Cache management** - Monitor cache performance and clear when necessary to ensure fresh data
+9. **Rate limiting** - Price endpoints have specific rate limits to prevent abuse
 
-## 📞 Support
+### فارسی
+1. **هرگز کلیدهای خصوصی را روی سرور ذخیره نکنید** - بک‌اند فقط اثبات‌ها و متاداده‌ها را مدیریت می‌کند
+2. **تغییر رمزهای عبور پیش‌فرض** - همیشه اعتبارنامه‌های ادمین پیش‌فرض را در تولید تغییر دهید
+3. **فعال کردن احراز هویت دو مرحله‌ای** - احراز هویت دو مرحله‌ای برای حساب‌های ادمین به شدت توصیه می‌شود
+4. **پشتیبان‌گیری منظم** - پشتیبان‌گیری منظم پایگاه داده را پیاده‌سازی کنید
+5. **نظارت بر ثبت‌نام‌ها** - به طور منظم ثبت‌نام‌ها را برای فعالیت‌های مشکوک بررسی کنید
+6. **به‌روزرسانی وابستگی‌ها** - تمام وابستگی‌ها را برای امنیت به‌روز نگه دارید
+7. **پیکربندی سرویس قیمت** - کلیدهای API برای CoinGecko و CoinMarketCap را برای دقت بهینه قیمت پیکربندی کنید
+8. **مدیریت کش** - عملکرد کش را نظارت کنید و در صورت لزوم پاک کنید تا داده‌های تازه تضمین شود
+9. **محدودیت نرخ** - نقاط پایانی قیمت محدودیت‌های نرخ خاصی دارند تا از سوءاستفاده جلوگیری شود
 
+---
+
+## 📞 Support | پشتیبانی
+
+### English
 For technical support or questions:
 - Email: support@GTC-token.com
 - Documentation: [Link to docs]
 - Issues: [GitHub Issues]
 
-## 📄 License
+### فارسی
+برای پشتیبانی فنی یا سوالات:
+- ایمیل: support@GTC-token.com
+- مستندات: [لینک به مستندات]
+- مسائل: [مسائل GitHub]
+
+---
+
+## 📄 License | مجوز
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-## Persian
-
-# بک‌اند توکن گرین کندل (GCT)
-
-یک API بک‌اند امن و مقیاس‌پذیر برای پلتفرم توکن گرین کندل که با Express.js و MongoDB ساخته شده است. این بک‌اند از مدیریت claim توکن، توزیع Merkle tree، پنل ادمین و یکپارچگی با بلاک‌چین BSC پشتیبانی می‌کند.
-
-## 🚀 ویژگی‌ها
-
-### ویژگی‌های اصلی
-- **احراز هویت امن کاربران** - احراز هویت مبتنی بر کیف پول با تأیید امضا
-- **سیستم مدیریت ادمین** - کنترل دسترسی مبتنی بر نقش با پشتیبانی 2FA
-- **سیستم Claim توکن** - قابلیت خود-claim و ادمین-claim
-- **توزیع Merkle Tree** - توزیع کارآمد توکن با اثبات‌های رمزنگاری
-- **یکپارچگی بلاک‌چین** - یکپارچگی شبکه BSC برای تعامل با قرارداد هوشمند
-- **محدودیت نرخ** - محافظت در برابر سوءاستفاده و حملات DDoS
-- **ثبت وقایع جامع** - ثبت امنیت و مسیر حسابرسی
-- **اعتبارسنجی ورودی** - جلوگیری از حملات XSS و injection
-
-### ویژگی‌های امنیتی
-- احراز هویت مبتنی بر JWT
-- محدودیت نرخ و throttling
-- محافظت CORS
-- هدرهای امنیتی Helmet
-- پاکسازی و اعتبارسنجی ورودی
-- مدیریت جلسه
-- احراز هویت دو مرحله‌ای برای ادمین‌ها
-- هش امن رمز عبور
-- ردیابی و نظارت IP
-
-### نقاط پایانی API
-- **احراز هویت** - `/api/v1/auth/*`
-- **مدیریت کاربر** - `/api/v1/user/*`
-- **پنل ادمین** - `/api/v1/admin/*`
-- **عملیات Claim** - `/api/v1/claim/*`
-- **بلاک‌چین** - `/api/v1/blockchain/*`
-
-## 📋 پیش‌نیازها
-
-- **Node.js** >= 18.0.0
-- **MongoDB** >= 4.4
-- **npm** یا **yarn**
-
-## 🛠️ نصب
-
-### 1. کلون کردن مخزن
-```bash
-git clone <repository-url>
-cd gct-backend
-```
-
-### 2. نصب وابستگی‌ها
-```bash
-npm install
-```
-
-### 3. پیکربندی محیط
-فایل نمونه محیط را کپی کرده و تنظیمات خود را پیکربندی کنید:
-
-```bash
-cp .env.example .env
-```
-
-فایل `.env` را با پیکربندی خود ویرایش کنید:
-
-```env
-# پیکربندی سرور
-NODE_ENV=development
-PORT=3000
-API_VERSION=v1
-
-# پایگاه داده
-MONGODB_URI=mongodb://localhost:27017/gct-backend
-
-# امنیت
-JWT_SECRET=کلید-فوق-محرمانه-jwt-خود-را-در-تولید-تغییر-دهید
-SESSION_SECRET=کلید-فوق-محرمانه-جلسه-خود-را-در-تولید-تغییر-دهید
-BCRYPT_ROUNDS=12
-
-# پیکربندی ادمین
-ADMIN_EMAIL=admin@gct-token.com
-ADMIN_DEFAULT_PASSWORD=Admin123!@#
-
-# پیکربندی بلاک‌چین
-BSC_RPC_URL=https://bsc-dataseed.binance.org/
-BSC_TESTNET_RPC_URL=https://data-seed-prebsc-1-s1.binance.org:8545/
-NETWORK=testnet
-CONTRACT_ADDRESS=0x0000000000000000000000000000000000000000
-PRIVATE_KEY=کلید-خصوصی-شما-برای-تراکنش‌های-ادمین
-
-# محدودیت نرخ
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
-CLAIM_RATE_LIMIT_WINDOW_MS=3600000
-CLAIM_RATE_LIMIT_MAX_REQUESTS=10
-
-# CORS
-ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
-```
-
-### 4. راه‌اندازی پایگاه داده
-مطمئن شوید که MongoDB در حال اجرا است، سپس کاربر ادمین پیش‌فرض را ایجاد کنید:
-
-```bash
-node src/scripts/createDefaultAdmin.js
-```
-
-### 5. شروع سرور
-
-**توسعه:**
-```bash
-npm run dev
-```
-
-**تولید:**
-```bash
-npm start
-```
-
-سرور روی `http://localhost:3000` (یا PORT پیکربندی شده شما) شروع خواهد شد.
-
-## 📚 مستندات API
-
-### احراز هویت
-
-#### دریافت پیام احراز هویت
-```http
-GET /api/v1/auth/message/:walletAddress
-```
-
-پیامی برای احراز هویت امضای کیف پول بازمی‌گرداند.
-
-#### احراز هویت کیف پول
-```http
-POST /api/v1/auth/wallet
-Content-Type: application/json
-
-{
-  "walletAddress": "0x742d35Cc6634C0532925a3b8D23a40b83d8FA16F",
-  "signature": "0x...",
-  "message": "خوش آمدید به پلتفرم توکن GCT!..."
-}
-```
-
-#### ورود ادمین
-```http
-POST /api/v1/auth/admin/login
-Content-Type: application/json
-
-{
-  "email": "admin@gct-token.com",
-  "password": "Admin123!@#",
-  "twoFactorCode": "123456"
-}
-```
-
-## 🔧 اسکریپت‌ها
-
-### ایجاد ادمین پیش‌فرض
-```bash
-node src/scripts/createDefaultAdmin.js
-```
-
-### وارد کردن Merkle Tree از CSV/JSON
-```bash
-node src/scripts/importMerkleTree.js allocations.csv "فاز 1" "توضیحات" admin@gct-token.com
-```
-
-**فرمت CSV:**
-```csv
-walletAddress,amount
-0x742d35Cc6634C0532925a3b8D23a40b83d8FA16F,1000000000000000000
-0x8ba1f109551bD432803012645Hac136c22C12345,2000000000000000000
-```
-
-## 🔒 امنیت
-
-### محدودیت نرخ
-- **نقاط پایانی API**: 100 درخواست در 15 دقیقه به ازای هر IP
-- **احراز هویت**: 5 تلاش در 15 دقیقه به ازای هر IP
-- **Claims**: 10 claim در ساعت به ازای هر IP، 1 claim در 24 ساعت به ازای هر کاربر
-
-### احراز هویت
-- **کاربران**: احراز هویت مبتنی بر امضای کیف پول
-- **ادمین‌ها**: ایمیل/رمز عبور + 2FA اختیاری
-
-### محافظت داده‌ها
-- تمام داده‌های حساس رمزنگاری شده‌اند
-- هیچ کلید خصوصی روی سرور ذخیره نمی‌شود
-- مدیریت امن جلسه
-- اعتبارسنجی و پاکسازی ورودی
-- HTTPS اجباری در تولید
-
-## 🌐 استقرار
-
-### متغیرهای محیط برای تولید
-```env
-NODE_ENV=production
-PORT=443
-MONGODB_URI=mongodb://your-production-db/gct-backend
-JWT_SECRET=رمز-تولید-شما
-SSL_KEY_PATH=/path/to/ssl/private.key
-SSL_CERT_PATH=/path/to/ssl/certificate.crt
-```
-
-### چک‌لیست تولید
-- [ ] تغییر رمز عبور ادمین پیش‌فرض
-- [ ] فعال‌سازی 2FA برای تمام حساب‌های ادمین
-- [ ] پیکربندی اتصال مناسب MongoDB با احراز هویت
-- [ ] تنظیم گواهینامه‌های SSL/TLS
-- [ ] پیکربندی قوانین فایروال
-- [ ] راه‌اندازی نظارت و ثبت وقایع
-- [ ] پیکربندی استراتژی پشتیبان‌گیری
-- [ ] تنظیم رمزهای قوی JWT
-- [ ] پیکربندی منابع مناسب CORS
-- [ ] راه‌اندازی محدودیت نرخ
-- [ ] پیکربندی متغیرهای محیط
-- [ ] تست تمام نقاط پایانی
-- [ ] راه‌اندازی نظارت خطا
-
-## 📊 نظارت
-
-### بررسی سلامت
-```http
-GET /health
-```
-
-### وقایع
-وقایع در دایرکتوری `logs/` ذخیره می‌شوند:
-- `error.log` - وقایع سطح خطا
-- `combined.log` - تمام وقایع
-
-### دسته‌بندی وقایع
-- **امنیت**: احراز هویت، مجوز، فعالیت‌های مشکوک
-- **ادمین**: اقدامات اداری
-- **Claim**: عملیات claim توکن
-- **بلاک‌چین**: تعاملات قرارداد هوشمند
-- **حسابرسی**: تمام عملیات مهم
-
-## 🧪 تست
-
-### اجرای تست‌ها
-```bash
-npm test
-```
-
-### اجرای تست‌ها در حالت نظارت
-```bash
-npm run test:watch
-```
-
-### Linting
-```bash
-npm run lint
-npm run lint:fix
-```
-
-## 🤝 مشارکت
-
-1. مخزن را fork کنید
-2. یک شاخه ویژگی ایجاد کنید
-3. تغییرات خود را اعمال کنید
-4. تست‌هایی برای قابلیت جدید اضافه کنید
-5. linting و تست‌ها را اجرا کنید
-6. درخواست pull ارسال کنید
-
-## 📝 فرمت پاسخ API
-
-### پاسخ موفقیت‌آمیز
-```json
-{
-  "success": true,
-  "data": {
-    // داده‌های پاسخ
-  }
-}
-```
-
-### پاسخ خطا
-```json
-{
-  "success": false,
-  "error": "پیام خطا",
-  "details": [
-    // خطاهای اعتبارسنجی در صورت وجود
-  ]
-}
-```
-
-## 🔗 مستندات مرتبط
-
-- [مستندات قرارداد هوشمند](./docs/smart-contract.md)
-- [مرجع API](./docs/API.md)
-- [راهنمای امنیت](./docs/security.md)
-- [راهنمای استقرار](./docs/DEPLOYMENT.md)
-
-## ⚠️ نکات مهم
-
-1. **هرگز کلیدهای خصوصی را روی سرور ذخیره نکنید** - بک‌اند فقط proof ها و metadata را مدیریت می‌کند
-2. **رمزهای عبور پیش‌فرض را تغییر دهید** - همیشه اعتبارنامه‌های ادمین پیش‌فرض را در تولید تغییر دهید
-3. **2FA را فعال کنید** - احراز هویت دو مرحله‌ای برای حساب‌های ادمین به شدت توصیه می‌شود
-4. **پشتیبان‌گیری منظم** - پشتیبان‌گیری منظم از پایگاه داده را پیاده‌سازی کنید
-5. **نظارت بر وقایع** - به طور منظم وقایع را برای فعالیت‌های مشکوک بررسی کنید
-6. **به‌روزرسانی وابستگی‌ها** - تمام وابستگی‌ها را برای امنیت به‌روز نگه دارید
-
-## 📞 پشتیبانی
-
-برای پشتیبانی فنی یا سؤالات:
-- ایمیل: support@gct-token.com
-- مستندات: [لینک به مستندات]
-- مسائل: [GitHub Issues]
-
-## 📄 مجوز
-
-این پروژه تحت مجوز MIT منتشر شده است - فایل [LICENSE](LICENSE) را برای جزئیات مشاهده کنید.
+این پروژه تحت مجوز MIT مجاز است - برای جزئیات فایل [LICENSE](LICENSE) را ببینید.
 
 ---
 
-**⚠️ اطلاعیه امنیتی**: این بک‌اند عملیات مالی را مدیریت می‌کند. همیشه بهترین شیوه‌های امنیتی را دنبال کنید، تست کامل انجام دهید و قبل از استقرار در تولید، حسابرسی امنیتی حرفه‌ای را در نظر بگیرید.
+<div align="center">
+
+**Made with ❤️ by the GTC Team | ساخته شده با ❤️ توسط تیم GCT**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/your-repo)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da.svg)](https://discord.gg/your-discord)
+[![Twitter](https://img.shields.io/badge/Twitter-Follow%20Us-1da1f2.svg)](https://twitter.com/your-twitter)
+
+</div>

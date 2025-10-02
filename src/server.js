@@ -6,6 +6,7 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const http = require('http');
 require('dotenv').config();
 
 const logger = require('./utils/logger');
@@ -15,8 +16,18 @@ const adminRoutes = require('./routes/admin');
 const claimRoutes = require('./routes/claim');
 const userRoutes = require('./routes/user');
 const blockchainRoutes = require('./routes/blockchain');
+const priceRoutes = require('./routes/price');
+const uploadRoutes = require('./routes/upload');
+const emailRoutes = require('./routes/email');
+const cacheRoutes = require('./routes/cache');
+const blogRoutes = require('./routes/blog');
+const stakingRoutes = require('./routes/staking');
+const helpRoutes = require('./routes/help');
+const activityRoutes = require('./routes/activity');
+const WebSocketService = require('./services/websocketService');
 
 const app = express();
+const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
 // Security middleware
@@ -24,9 +35,11 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.ethers.io", "https://cdn.jsdelivr.net"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "ws:", "wss:", "https:"],
     },
   },
 }));
@@ -86,6 +99,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/GTC-backe
   process.exit(1);
 });
 
+// Initialize WebSocket service
+const wsService = new WebSocketService(server);
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -95,12 +111,23 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Serve static files from public directory
+app.use(express.static('public'));
+
 // API routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/claim', claimRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/blockchain', blockchainRoutes);
+app.use('/api/v1/price', priceRoutes);
+app.use('/api/v1/upload', uploadRoutes);
+app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/cache', cacheRoutes);
+app.use('/api/v1/blog', blogRoutes);
+app.use('/api/v1/staking', stakingRoutes);
+app.use('/api/v1/help', helpRoutes);
+app.use('/api/v1/activity', activityRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -131,9 +158,10 @@ process.on('SIGINT', () => {
 });
 
 // Start server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   logger.info(`GTC Backend server is running on port ${PORT}`);
   logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  logger.info(`WebSocket service initialized`);
 });
 
 module.exports = app;

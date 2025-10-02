@@ -1,0 +1,30 @@
+{
+  "name": "gct-token-tests",
+  "version": "1.0.0",
+  "description": "Test suite for GCT Token Platform",
+  "scripts": {
+    "test": "node test-runner.js",
+    "test:frontend": "node test-frontend.js",
+    "test:backend": "node test-backend.js",
+    "test:integration": "node test-integration.js",
+    "test:watch": "nodemon test-runner.js",
+    "test:ci": "node test-runner.js --ci"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "keywords": [
+    "testing",
+    "gct",
+    "token",
+    "blockchain",
+    "puppeteer",
+    "integration-tests"
+  ],
+  "author": "GCT Team",
+  "license": "MIT"
+}

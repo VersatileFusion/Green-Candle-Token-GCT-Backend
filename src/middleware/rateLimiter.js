@@ -5,7 +5,7 @@ const logger = require('../utils/logger');
 // General API rate limiter
 const apiLimiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || (process.env.NODE_ENV === 'test' ? 1000 : 100),
   message: {
     success: false,
     error: 'Too many requests from this IP, please try again later.',
@@ -57,7 +57,7 @@ const claimLimiter = rateLimit({
 // Authentication rate limiter
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts per IP
+  max: process.env.NODE_ENV === 'test' ? 1000 : 5, // Much more lenient for testing
   skipSuccessfulRequests: true,
   message: {
     success: false,
@@ -108,9 +108,9 @@ const adminAuthLimiter = rateLimit({
 const speedLimiter = slowDown({
   windowMs: 15 * 60 * 1000, // 15 minutes
   delayAfter: 10, // Allow 10 requests per 15 minutes at full speed
-  delayMs: 500, // Add 500ms delay after 10 requests
+  delayMs: () => 500, // Add 500ms delay after 10 requests
   maxDelayMs: 20000, // Maximum delay of 20 seconds
-  onLimitReached: (req, res, options) => {
+  onSlowDown: (req, res, options) => {
     logger.security('Speed limit reached', {
       ip: req.ip,
       userAgent: req.get('User-Agent'),
